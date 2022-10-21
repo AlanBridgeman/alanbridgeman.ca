@@ -1,3 +1,4 @@
+from alanbridgeman_ca.settings.dev import SECRET_KEY
 from .base import *
 import os
 
@@ -36,6 +37,8 @@ DATABASES = {
         'PASSWORD': os.environ['DBPASS'] 
     }
 }
+
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 try:
     from .local import *
