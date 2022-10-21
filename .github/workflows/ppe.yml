@@ -57,6 +57,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'alanbridgeman_ca'
+          app-name: 'alanbridgemanca'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_PPE }}
