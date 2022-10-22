@@ -2,8 +2,15 @@ from alanbridgeman_ca.settings.dev import SECRET_KEY
 from .base import *
 import os
 
+
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
-CSRF_TRUSTED_ORIGINS = ['https://'+ os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
+CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
+
+# This is needed because WEBSITE_HOSTNAME (populated by Azure) is the hostname of the Azure App Service NOT the custom domain if configured
+# Append is used so that you can still use the Azure App Service domain name
+if 'CUSTOM_HOSTNAME' in os.environ:
+    ALLOWED_HOSTS.append(os.environ['CUSTOM_HOSTNAME'])
+    CSRF_TRUSTED_ORIGINS.append('https://' + os.environ['CUSTOM_HOSTNAME'])
 
 DEBUG = False
 
