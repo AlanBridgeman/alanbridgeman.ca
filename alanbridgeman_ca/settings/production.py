@@ -1,7 +1,6 @@
-from alanbridgeman_ca.settings.dev import SECRET_KEY
+#from alanbridgeman_ca.settings.dev import SECRET_KEY
 from .base import *
 import os
-
 
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
 CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
@@ -47,7 +46,7 @@ DATABASES = {
 
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
-try:
-    from .local import *
-except ImportError:
-    pass
+#try:
+#    from .local import *
+#except ImportError:
+#    pass
