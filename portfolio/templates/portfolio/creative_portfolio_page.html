@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags wagtailvideos_tags %}
+
+{% block extra_css %}
+    <style>
+        .animation {
+            flex-direction: row;
+            margin-bottom: 2rem;
+        }
+        .animation h3 {
+            margin-bottom: 1rem;
+        }
+        .animation .btn {
+            margin-top: 1rem;
+        }
+
+        .animation:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .card {
+            margin-bottom: 2rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1>{{ page.title }}</h1>
+                {% include_block page.body %}
+                <div class="content">
+                    <h2>3D Art &amp; Animations</h2>
+                    <p>Here you can find a demo of all the animations that I've created (mostly through Blender). You can download the raw files and use them in your own projects.</p>
+                    <div class="animations">
+                        {% for animation in page.animations.all %}
+                            <div class="animation d-flex row align-items-center">
+                                <div class="animation-text col-xl-6">
+                                    <h3>{{ animation.title }}</h3>
+                                    {% include_block animation.description %}
+                                    {% for raw_files in animation.raw_files.all %}
+                                        {% with raw_file=raw_files.raw_file %}
+                                            <a class="btn btn-primary"href="{{ raw_file.url }}" download>Download {{ raw_file.title }}</a>
+                                        {% endwith %}
+                                    {% endfor %}
+                                </div>
+                                <div class="animation-demo col-xl-6">
+                                    {% if animation.demo %}
+                                        {% video animation.demo controls width=100% %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <hr />
+                    <h2>Photo Art</h2>
+                    <p>Here you can find a collection of photos that I've edited to look like art.</p>
+                    <div class="row">
+                        {% for photo_art in page.photo_art.all %}
+                            <section class="card col-md mx-2">
+                                <header class="card-head text-center">
+                                    <h3>{{ photo_art.title }}</h3>
+                                </header>
+                                <main class="card-body d-flex align-items-center my-2">
+                                    <div style="d-flex align-items-center flex-column">
+                                        {% image photo_art.image scale-100 as image %}
+                                        <img src="{{ image.url }}" alt="{{ photo_art.title }}" style="width:100%;" />
+                                        {% include_block photo_art.description %}
+                                    </div>
+                                </main>
+                            </section>
+                        {% endfor %}
+                    </div>
+                    <hr />
+                    <h2>Music and Audio</h2>
+                    <p>Here you can find a collection of music and audio that I've created.</p>
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

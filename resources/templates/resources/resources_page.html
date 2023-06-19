@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags %}
+
+{% block content %}
+    <div class="container-fluid">
+    <h1>{{ page.title }}</h1>
+    {% for block in page.body %}
+        {% if block.block_type == 'heading' %}
+            <h2>{{ block.value }}</h2>
+        {% elif block.block_type == 'podcast' %}
+            <h3>{{ block.value.title }}</h3>
+            {{ block.value.description|richtext }}
+            <a href="{{ block.value.link}}" download class="btn btn-primary">See more about {{ block.value.title }}</a>
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}

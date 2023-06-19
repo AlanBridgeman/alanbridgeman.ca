@@ -1,5 +1,11 @@
-Django>=4.1,<4.2
-wagtail>=4.0,<4.1
+Django
+wagtail
+wagtailmenus
+wagtailvideos
+
+django-sendgrid-v5
+mailchimp-marketing
+
 psycopg2-binary
 python-dotenv
 whitenoise

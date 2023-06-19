@@ -24,37 +24,60 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
-    "home",
-    "search",
-    "wagtail.contrib.forms",
-    "wagtail.contrib.redirects",
-    "wagtail.embeds",
-    "wagtail.sites",
-    "wagtail.users",
-    "wagtail.snippets",
-    "wagtail.documents",
-    "wagtail.images",
-    "wagtail.search",
-    "wagtail.admin",
-    "wagtail",
-    "modelcluster",
-    "taggit",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.sessions",
     "django.contrib.staticfiles",
+
+    "wagtail",
+    "wagtail.admin",
+    "wagtail.contrib.forms",
+    "wagtail.contrib.modeladmin",
+    "wagtail.contrib.redirects",
+    "wagtail.contrib.routable_page",
+    "wagtail.contrib.simple_translation",
+    "wagtail.contrib.table_block",
+    "wagtail.contrib.settings",
+    "wagtail.documents",
+    "wagtail.embeds",
+    "wagtail.images",
+    "wagtail.locales",
+    "wagtail.search",
+    "wagtail.sites",
+    "wagtail.snippets",
+    "wagtail.users",
+
+    "modelcluster",
+
+    "taggit",
+
+    "wagtailmenus",
+
+    "wagtailvideos",
+    
+    "home",
+    "search",
+    "about",
+    "blog",
+    "dashboard",
+    "portfolio",
+    "resources",
+    "newsletter"
 ]
 
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+    # Requires SessionMiddleware be loaded before it (AuthenticationMiddleware)
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.security.SecurityMiddleware",
+
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
@@ -71,8 +94,11 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
+                "django.template.context_processors.i18n",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "wagtail.contrib.settings.context_processors.settings",
+                "wagtailmenus.context_processors.wagtailmenus",
             ],
         },
     },
@@ -84,15 +110,15 @@ WSGI_APPLICATION = "alanbridgeman_ca.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['DBNAME'],
-        'HOST': os.environ['DBHOST'],
-        'USER': os.environ['DBUSER'],
-        'PASSWORD': os.environ['DBPASS'] 
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': os.environ['DBNAME'],
+#        'HOST': os.environ['DBHOST'],
+#        'USER': os.environ['DBUSER'],
+#        'PASSWORD': os.environ['DBPASS'] 
+#    }
+#}
 
 
 # Password validation
@@ -117,14 +143,23 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
-
-TIME_ZONE = "UTC"
+#LANGUAGE_CODE = "en-us"
 
 USE_I18N = True
-
+WAGTAIL_I18N_ENABLED = True
 USE_L10N = True
 
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('fr', 'French'),
+]
+
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
+WAGTAILADMIN_PERMITTED_LANGUAGES = LANGUAGES
+
+TIME_ZONE = "UTC"
 USE_TZ = True
 
 
@@ -166,4 +201,9 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "http://example.com"
+WAGTAILADMIN_BASE_URL = "http://alanbridgeman.ca"
+
+# SECURITY WARNING: define the correct hosts in production!
+ALLOWED_HOSTS = ["*"]
+X_FRAME_OPTIONS = "SAMEORIGIN"
+CSRF_TRUSTED_ORIGINS=["https://ppe.alanbridgeman.ca", "https://alanbridgeman.ca"]

@@ -23,17 +23,98 @@
 
         {# Global stylesheets #}
         <link rel="stylesheet" type="text/css" href="{% static 'css/alanbridgeman_ca.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/accessibility.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/taken.css' %}">
+
+        {# Global External Stylesheets #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
         {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
         {% endblock %}
     </head>
+    <body class="page-top {% block body_class %}{% endblock %}" style="margin: 0;padding: 0">
+        <a class="skip-to-content-link" href="#main-content">Skip to content</a>
 
-    <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
-        {% block content %}{% endblock %}
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            {% include 'components/sidebar.html' %}
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    {% include 'components/topbar.html' %}
 
+                    {% block content %}
+                    {% endblock %}
+        
+                    <!-- Footer -->
+                    <footer class="sticky-footer bg-white">
+                        <div class="container my-auto">
+                            <div class="copyright text-center my-auto">
+                                <span>Copyright &copy; Your Website 2021</span>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- End of Footer -->
+        
+                </div>
+                <!-- End of Content Wrapper -->
+        
+            </div>
+            <!-- End of Page Wrapper -->
+        
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+        
+            <!-- Logout Modal-->
+            <!-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="login.html">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+        {# <div class="container-fluid" style="margin: 0;padding: 0"> #}
+        {#     <div class="d-flex flex-row flex-nowrap mb-2"> #}
+        {#         {% include 'components/header.html' %} #}
+        {#         <div class="d-flex col p-2 justify-content-center"> #}
+        {#             <main role="main" id="main-content" class=""> #}
+        {#                 {% block content %}{% endblock %} #}
+        {#             </main> #}
+        {#             {% include 'components/footer.html' %} #}
+        {#        </div> #}
+        {#     </div> #}
+        {# </div> #}
+
+        {# {% include 'components/footer.html' %} #}
+
+        {# Global Extenral JavaScript #}
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- FontAwesome Core JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/alanbridgeman_ca.js' %}"></script>
 

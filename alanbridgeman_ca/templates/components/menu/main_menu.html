@@ -1,0 +1,24 @@
+{% load menu_tags %}
+
+<ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+{% for item in menu_items %}
+    {% if item.has_children_in_menu %}
+        {% with submenu_index=forloop.counter %}
+        <li class="nav-item dropdown {% if item.active %}{{ item.active_class }}{% endif %}">
+            <a href="#submenu{{ submenu_index }}" class="nav-link align-middle px-0" data-bs-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                <i class="fs-4 bi-house"></i>
+                <span class="ms-1 d-none d-sm-inline">{{ item.text }}</span>
+            </a>
+            {% sub_menu item template="components/menu/sub_menu_dropdown.html" %}
+        </li>
+        {% endwith %}
+    {% else %}
+        <li class="nav-item {{ item.active_class }}">
+            <a class="nav-link align-middle px-0" href="{{ item.href }}" >
+                <i class="fs-4 bi-house"></i>
+                <span class="ms-1 d-none d-sm-inline">{{ item.text }}</span>
+            </a>
+        </li>
+    {% endif %}
+{% endfor %}
+</ul>

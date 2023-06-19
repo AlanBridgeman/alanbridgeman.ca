@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ page.title }}</h1>
+        </div>
+    
+        <div class="row">
+            {% include_block page.body %}
+        </div>
+
+        {% for experience in page.experiences.all %}
+            <div class="row my-xl-4 align-items-center">
+                <div class="d-flex col-xl-1">
+                    {% image experience.org_logo scale-100 as img %}
+                    <img src="{{ img.url }}" class="img-fluid" alt="">
+                </div>
+                <div class="d-flex col-xl-11 flex-column align-items-center">
+                    <div class="row w-100">
+                        <div class="d-block d-xl-none col-12">
+                            <span>{{ experience.start_date|date:'E Y' }} - {% if experience.end_date %}{{ experience.end_date|date:'E Y' }}{% else %}Present{% endif %}</span>
+                        </div>
+                        <div class="col-xl-9">
+                            <span>{{ experience.organization }}{% if experience.location %},{% endif %}</span>
+                            {% if experience.location %}
+                                <span>{{ experience.location }}</span>
+                            {% endif %}
+                        </span>
+                        </div>
+                        <div class="d-none d-xl-block col-xl-3 text-xl-right">
+                            <span>{{ experience.start_date|date:'E Y' }} - {% if experience.end_date %}{{ experience.end_date|date:'E Y' }}{% else %}Present{% endif %}</span>
+                        </div>
+                        <h3>{{ experience.position }}</h3>
+                    </div>
+                    <div class="row w-100">
+                        {% include_block experience.description %}
+                    </div>
+                </div>
+                <hr class="my-4 d-block d-xl-none">
+            </div>
+        {% endfor %}
+
+        {% comment %}
+        {% for page.education %}
+        {% include_block page.education %}
+        {% endfor %}
+
+        {% for page.skills %}
+        {% include_block page.skills %}
+        {% endfor %}
+
+        {% for page.interests %}
+        {% include_block page.interests %}
+        {% endfor %}
+
+        {% for page.awards %}
+        {% include_block page.awards %}
+        {% endfor %}
+
+        {% for page.references %}
+        {% include_block page.references %}
+        {% endfor %}
+        {% endcomment %}
+    </div>
+{% endblock %}
