@@ -5,7 +5,7 @@ from modelcluster.models import ClusterableModel
 
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Orderable

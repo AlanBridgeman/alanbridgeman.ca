@@ -1,4 +1,4 @@
-from wagtail.core import blocks
+from wagtail import blocks
 
 class Podcast(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255, help_text="Title of the podcast")
